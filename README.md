@@ -1,21 +1,22 @@
 ## pyWebREPL
 * The libarary will enable remote control of ESP8266 dev board. 
 * One can push MicroPython code to a ESP8266 wirelessly and run it in a real time manner.
+<img src="misc/materials.png"></img>
 ## Mechanism
 * An ESP8266 dev board will be flashed with MicroPython firmware
 * Enable the board's WebREPL feature so one can get MicroPython prompt via a webservice
-* Join the board to a wireless local area network
+* Join the board to a router (wireless local area network)
 * At this moment, there is only a broswer client to talk to the webservice 
 * This library provide a Python client to talk to the webservice
 ## More Deeper
 * The webservice uses the websocket protocol 
 * This Python library converts your MicroPython code into websocket frames
 * Frames are sent to the webservice then MicroPython code will be executed in real time.
-## Materials
+## Material List
 * ESP8266 dev board
 * Raspberry Pi 
 * WiFi router (Pi is already connected to this router)
-## Procedure
+## ESP8266 blink test with above materials
 * Hook ESP8266 up with Raspberry Pi so ESP8266 appears at /dev/ttyUSB0
 * Install ESPtool
 ```
