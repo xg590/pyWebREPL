@@ -13,7 +13,30 @@
 * Frames are sent to the webservice then MicroPython code will be executed in real time.
 ## Materials
 * ESP8266 dev board
-* A Linux with Python 3
-* WiFi router
+* Raspberry Pi 
+* WiFi router (Pi is already connected to this router)
 ## Procedure
-... ...
+* Hook ESP8266 up with Raspberry Pi so ESP8266 appears at /dev/ttyUSB0
+* Install ESPtool
+```
+pip install esptool
+```
+* Flash EPS8266 with MicroPython Firmware [esp8266-20210902-v1.17.bin](https://micropython.org/download/esp8266/)
+```
+esptool.py --port /dev/ttyUSB0               erase_flash
+esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 /var/www/html/esp8266-20210902-v1.17.bin
+screen /dev/ttyUSB0 115200
+```
+<img src="misc/flash_micropython_to_esp8266.png"></img>
+* Enable WebREPL and Join ESPtool to WiFi router
+```
+import webrepl_setup 
+import network 
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+# wlan.config(dhcp_hostname="IwantThisHostname") 
+wlan.connect('xxx', 'xxxxxx')
+wlan.ifconfig()
+```
+<img src="misc/enable_webrepl.png"></img>
+* Run this [Python code](misc/pyWebREPL_blink.ipynb) on Raspberry Pi to blink ESP8266 
