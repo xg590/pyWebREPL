@@ -1,24 +1,23 @@
 ## pyWebREPL
-* The libarary will enable remote control of ESP8266 dev board. 
-* One can push MicroPython code to a ESP8266 wirelessly and run it in a real time manner.
+* This Python libarary will enable remote control of ESP8266 dev board by pushing MicroPython code from PC/Mac/Raspberry Pi to ESP8266 wirelessly.
 <img src="misc/materials.png"></img>
 ## Mechanism
-* An ESP8266 dev board will be flashed with MicroPython firmware
-* Enable the board's WebREPL feature so one can get MicroPython prompt via a webservice
-* Join the board to a router (wireless local area network)
-* At this moment, there is only a broswer client to talk to the webservice 
-* This library provide a Python client to talk to the webservice
+* Run command on Raspberry Pi to flash the ESP8266 dev board with MicroPython firmware.
+* Run command on Raspberry Pi to enable MicroPython's WebREPL feature so one can get the MicroPython prompt via a webservice
+* Run command on Raspberry Pi to join ESP8266 to a router (wireless local area network)
+* At this moment, there is only a broswer client for Raspberry Pi to talk to the webservice on ESP8266
+* This library provide a Python client for Raspberry Pi to talk to the webservice
 ## More Deeper
 * The webservice uses the websocket protocol 
-* This Python library converts your MicroPython code into websocket frames
-* Frames are sent to the webservice then MicroPython code will be executed in real time.
+* This Python library for Raspberry Pi converts the MicroPython code into websocket frames
+* Frames are sent to the webservice then MicroPython code will be executed on ESP8266 in real time.
 ## Material List
 * ESP8266 dev board
-* Raspberry Pi 
+* Raspberry Pi (OR any Linux)
 * WiFi router (Pi is already connected to this router)
 ## ESP8266 blink test with above materials
-* Hook ESP8266 up with Raspberry Pi so ESP8266 appears at /dev/ttyUSB0
-* Install ESPtool
+* Hook ESP8266 up with Raspberry Pi so ESP8266 appears as /dev/ttyUSB0
+* Install ESPtool on Raspberry Pi
 ```
 pip install esptool
 ```
@@ -29,7 +28,7 @@ esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 /
 screen /dev/ttyUSB0 115200
 ```
 <img src="misc/flash_micropython_to_esp8266.png"></img>
-* Enable WebREPL and Join ESPtool to WiFi router
+* Enable WebREPL and Join ESP8266 to WiFi router
 ```
 import webrepl_setup 
 import network 
