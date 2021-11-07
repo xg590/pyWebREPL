@@ -1,4 +1,5 @@
 ## pyWebREPL
+* This is a reverse-engineering work (Wireshark and Chrome Devtools) of [micropython/webrepl](https://micropython.org/webrepl/).
 * This Python libarary will enable remote control of ESP8266 dev board by pushing MicroPython code from PC/Mac/Raspberry Pi to ESP8266 wirelessly.
 <img src="misc/materials.png"></img>
 ## Mechanism
