@@ -17,7 +17,10 @@
 * Raspberry Pi (OR any Linux)
 * WiFi router (Pi is already connected to this router)
 ## ESP8266 blink test with above materials
-* Hook ESP8266 up with Raspberry Pi so ESP8266 appears as /dev/ttyUSB0
+* Hook ESP8266 up with Raspberry Pi (or Linux PC) so ESP8266 appears as /dev/ttyUSB0
+```
+wget https://micropython.org/resources/firmware/esp8266-20210902-v1.17.bin
+```
 * Install ESPtool on Raspberry Pi
 ```
 pip install esptool
@@ -25,7 +28,7 @@ pip install esptool
 * Flash EPS8266 with MicroPython Firmware [esp8266-20210902-v1.17.bin](https://micropython.org/download/esp8266/)
 ```
 esptool.py --port /dev/ttyUSB0               erase_flash
-esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 /var/www/html/esp8266-20210902-v1.17.bin
+esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20210902-v1.17.bin
 screen /dev/ttyUSB0 115200
 ```
 <img src="misc/flash_micropython_to_esp8266.png"></img>
@@ -41,3 +44,15 @@ wlan.ifconfig()
 ```
 <img src="misc/enable_webrepl.png"></img>
 * Run this [Python code](misc/pyWebREPL_blink.ipynb) on Raspberry Pi to blink ESP8266 
+## Automate above procedure
+* After plug ESP8266 into A raspberry Pi or Linux PC
+```
+sudo apt update && apt install python3 python3-pip
+pip install esptool
+git clone https://github.com/xg590/pyWebREPL.git
+cd pyWebREPL
+wget https://micropython.org/resources/firmware/esp8266-20210902-v1.17.bin
+bash misc/flash.sh ttyUSB0 host123456 wifi_ssid wifi_passwd
+tail -n4 flash.log
+python3 example/blink.py 192.168.x.xxx
+``` 
