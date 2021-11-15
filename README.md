@@ -1,6 +1,27 @@
+## Follow this section and skip others if you only want blink ESP8266 over WiFi.
+* Tested with a Linux PC (Rasberry Pi 3A) and a D1 mini (ESP8266).
+* Use a USB cable to connect the ESP8266 to the Raspberry Pi
+* Programm ESP8266 on Raspberry Pi with following code
+```
+sudo apt update && sudo apt install python3 python3-pip
+pip install esptool
+git clone https://github.com/xg590/pyWebREPL.git
+cd pyWebREPL
+wget https://micropython.org/resources/firmware/esp8266-20210902-v1.17.bin
+```
+* \# Connect ESP8266 to WiFi after it is flashed with MicroPython and WebREPL is enabled
+```
+bash misc/flash.sh ttyUSB0 giveESP8266aName [wifi_ssid] [wifi_passwd]
+tail -n4 flash.log
+```
+* \# Command tail will tell us what IP is given by WiFi router to the ESP8266 board
+* \# Blink ESP8266
+```
+python3 example/blink.py [192.168.x.xxx]
+``` 
 ## pyWebREPL
 * This is a reverse-engineering work (Wireshark and Chrome Devtools) of [micropython/webrepl](https://micropython.org/webrepl/).
-* This Python libarary will enable remote control of ESP8266 dev board by pushing MicroPython code from PC/Mac/Raspberry Pi to ESP8266 wirelessly.
+* This Python library will enable remote control of ESP8266 dev board by pushing MicroPython code from PC/Mac/Raspberry Pi to ESP8266 wirelessly.
 <img src="misc/materials.png"></img>
 ## Mechanism
 * Run command on Raspberry Pi to flash the ESP8266 dev board with MicroPython firmware.
@@ -44,15 +65,3 @@ wlan.ifconfig()
 ```
 <img src="misc/enable_webrepl.png"></img>
 * Run this [Python code](misc/pyWebREPL_blink.ipynb) on Raspberry Pi to blink ESP8266 
-## Automate above procedure
-* After plug ESP8266 into A raspberry Pi or Linux PC
-```
-sudo apt update && apt install python3 python3-pip
-pip install esptool
-git clone https://github.com/xg590/pyWebREPL.git
-cd pyWebREPL
-wget https://micropython.org/resources/firmware/esp8266-20210902-v1.17.bin
-bash misc/flash.sh ttyUSB0 host123456 wifi_ssid wifi_passwd
-tail -n4 flash.log
-python3 example/blink.py 192.168.x.xxx
-``` 
