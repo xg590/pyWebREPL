@@ -27,14 +27,19 @@ class WEBREPL:
         self.s.send(frame)
         
     def recv(self): 
-        buf = b''
+        buf = ''
         while True:
-            _ = self.s.recv(1) 
-            assert _ == b'\x81' # Fin + reserve + OpCode
-            l = ord(self.s.recv(1))
-            buf += self.s.recv(l)    
-            if buf[-4:]==b'>>> ':  
-                return buf.decode()   
+            while True:
+                _ = self.s.recv(1)
+                if  _ != b'\x81': # ignore nonsense for us
+                    break    
+            if _ == b'\x0d':  # print when receive a Carriage Return even if the buffer is not returnable
+                print(buf)  
+                buf = ''
+            if ord(_)>31:     # only buffer readable char
+                buf += _.decode()  
+            if buf[-4:]=='>>> ': # the buffer is now returnable 
+                return buf 
         
     def __init__(self, host='192.168.1.1', port=8266, password='123456'): 
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
