@@ -13,7 +13,7 @@ pip install esptool
 git clone -b v1.1 https://github.com/xg590/pyWebREPL.git
 cd pyWebREPL
 wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin
-bash misc/flash.sh ttyUSB0 giveESP8266aName [wifi_ssid] [wifi_passwd]
+bash misc/flash.sh /dev/ttyUSB0 myESP8266 esp8266-20220618-v1.19.1.bin [wifi_ssid] [wifi_passwd]
 tail -n4 flash.log
 ```
 * The last command tail will tell what IP is given by WiFi router to the ESP8266 board
