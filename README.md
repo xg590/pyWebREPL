@@ -10,9 +10,9 @@
 ```
 sudo apt update && sudo apt install python3 python3-pip
 pip install esptool
-git clone https://github.com/xg590/pyWebREPL.git
+git clone -b v1.1 https://github.com/xg590/pyWebREPL.git
 cd pyWebREPL
-wget https://micropython.org/resources/firmware/esp8266-20210902-v1.17.bin
+wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin
 bash misc/flash.sh ttyUSB0 giveESP8266aName [wifi_ssid] [wifi_passwd]
 tail -n4 flash.log
 ```
@@ -38,16 +38,16 @@ python3 example/blink.py 192.168.x.xxx
 ## What is Automated in flash.sh
 * Hook ESP8266 up with Raspberry Pi (or Linux PC) so ESP8266 appears as /dev/ttyUSB0
 ```
-wget https://micropython.org/resources/firmware/esp8266-20210902-v1.17.bin
+wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin
 ```
 * Install ESPtool on Raspberry Pi
 ```
 pip install esptool
 ```
-* Flash EPS8266 with MicroPython Firmware [esp8266-20210902-v1.17.bin](https://micropython.org/download/esp8266/)
+* Flash EPS8266 with MicroPython Firmware [esp8266-20220618-v1.19.1.bin](https://micropython.org/download/esp8266/)
 ```
 esptool.py --port /dev/ttyUSB0               erase_flash
-esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20210902-v1.17.bin
+esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20220618-v1.19.1.bin
 screen /dev/ttyUSB0 115200
 ```
 <img src="misc/flash_micropython_to_esp8266.png"></img>
@@ -63,3 +63,7 @@ wlan.ifconfig()
 ```
 <img src="misc/enable_webrepl.png"></img>
 * Run this [Python code](misc/pyWebREPL_blink.ipynb) on Raspberry Pi to blink ESP8266 
+## More about sending Nonprinting Characters
+* In the MicroPython prompt, when we press <kbd>ctrl</kbd>+<kbd>e</kbd> (its caret notation is <kbd>^E</kbd>) on keyboard, we activate the paste mode. 
+* If we refers to <i>Control code chart</i> of [ASCII](https://en.wikipedia.org/wiki/ASCII), we know <kbd>^E</kbd> is <kbd>"\x05"</kbd>, so we can activate the paste mode when we send b"\x05" via webREPL.
+* Our code will be received in paste mode.
