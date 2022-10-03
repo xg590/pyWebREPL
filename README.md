@@ -1,24 +1,26 @@
 ## pyWebREPL
 * Forget about USB cable and /dev/ttyUSB0.
-* Run this Python library on PC/Mac/Raspberry Pi to control ESP8266 remotely.
+* Run this Python library on PC/Mac/Raspberry Pi to control ESP32/ESP8266 remotely.
 * This is a reverse-engineering work (Wireshark and Chrome Devtools) of [micropython/webrepl](https://micropython.org/webrepl/). 
 <img src="misc/materials.png" width="450px" height="300px"></img>
-## Follow this section and skip others if you only want blink ESP8266 over WiFi.
+## Follow this section and skip others if you only want blink ESP32/ESP8266 over WiFi.
 * Tested with a Linux PC (Rasberry Pi 3A) and a D1 mini (ESP8266).
-* For one time, a USB cable is still necessary to connect ESP8266 with Raspberry Pi. 
+* Also tested with ESP32 boards.
+* For one time, a USB cable is still necessary to connect ESP32/ESP8266 with Raspberry Pi. 
 * Run following commands on Raspberry Pi.
 ```
 sudo apt update && sudo apt install python3 python3-pip
 pip install esptool
 git clone -b v1.1 https://github.com/xg590/pyWebREPL.git
 cd pyWebREPL
-wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin
-bash misc/flash.sh /dev/ttyUSB0 myESP8266 esp8266-20220618-v1.19.1.bin [wifi_ssid] [wifi_passwd]
+wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin && wget https://micropython.org/resources/firmware/esp32-20220618-v1.19.1.bin
+bash misc/flash_adv.sh --model esp8266 --port /dev/ttyUSB0 --bin esp8266-20220618-v1.19.1.bin --hostname myESP8266 --webrepl-passwd 123456 --ssid xxx --wifi-passwd xxx
+bash misc/flash_adv.sh --model esp32   --port /dev/ttyUSB0 --bin   esp32-20220618-v1.19.1.bin --hostname myESP32   --webrepl-passwd 123456 --ssid xxx --wifi-passwd xxx
 tail -n4 flash.log
 ```
-* The last command tail will tell what IP is given by WiFi router to the ESP8266 board
-* ESP8266 can already be detached with Raspberry Pi and powered by a separate USB charger. 
-* Blink ESP8266 with pyWebREPL over WiFi.
+* The last command tail will tell what IP is given by WiFi router to the ESP32/ESP8266 board
+* ESP32/ESP8266 can already be detached with Raspberry Pi and powered by a separate USB charger. 
+* Blink ESP32/ESP8266 with pyWebREPL over WiFi.
 ```
 python3 example/blink.py 192.168.x.xxx 
 ``` 
