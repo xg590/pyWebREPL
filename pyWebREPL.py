@@ -1,4 +1,4 @@
-import struct, socket 
+import struct, socket, time
 from random import randint
 
 class WEBREPL:
@@ -31,6 +31,7 @@ class WEBREPL:
         for cmd in code.strip().splitlines():
             self._send(cmd)
             self._send([b'\r'])
+            time.sleep(0.01) # This prevents prompt overflow
         self._send([b'\x04']) 
         
     def recv(self): 
