@@ -1,7 +1,7 @@
 ## pyWebREPL
 * Forget about USB cable and /dev/ttyUSB0.
 * Use this Python library on PC/Mac/Raspberry Pi to control ESP32/ESP8266 wirelessly.
-* [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client, which is not for real automation.
+* [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client, which seriously is not for automation.
 * I did a reverse-engineering (Wireshark and Chrome Devtools) work and created this Python library.  
 <img src="misc/materials.png" width="450px" height="300px"></img>
 ## Material List
