@@ -1,15 +1,16 @@
-## pyWebREPL
-* Forget about USB cable and /dev/ttyUSB0.
-* Use this Python library on PC/Mac/Raspberry Pi to control ESP32/ESP8266 wirelessly.
-* [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client, which seriously is not for automation.
-* I did a reverse-engineering (Wireshark and Chrome Devtools) work and created this Python library.  
+## Intro
+* I wanted to program my ESP32/ESP8266 over the Wireless LAN in real time so I created this library. 
+## pyWebREPL 
+* [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client to control ESP32/ESP8266 but it is not for real automation.
+* I did a reverse-engineering work with the help of Wireshark and Chrome Devtools.  
 <img src="misc/materials.png" width="450px" height="300px"></img>
+
 ## Material List
 * ESP32/ESP8266 dev board
 * Raspberry Pi (OR any Linux)
 * WiFi router (Pi is already connected to this router)
-## Follow this section and skip others if you only want blink ESP32/ESP8266 over WiFi.
-* For one time, a USB cable is still necessary to flash ESP32/ESP8266 on Raspberry Pi. 
+## Follow this section and skip others if you only want blink ESP32/ESP8266 over the WiFi.
+* For one time, a USB cable is still necessary to connect ESP32/ESP8266 to the Raspberry Pi. 
 * Run following commands on Raspberry Pi.
 ```
 sudo apt update && sudo apt install python3 python3-pip
@@ -21,19 +22,19 @@ bash misc/flash_adv.sh --model esp8266 --port /dev/ttyUSB0 --bin esp8266-2022061
 bash misc/flash_adv.sh --model esp32   --port /dev/ttyUSB0 --bin   esp32-20220618-v1.19.1.bin --hostname myESP32   --webrepl-passwd 123456 --ssid xxx --wifi-passwd xxx
 tail -n4 flash.log
 ```
-* The last command tail will tell what IP is given by a WiFi router to the ESP32/ESP8266 board
+* The last tail command reveals what IP is given by a WiFi router to the ESP32/ESP8266 board.
 * After run these commands, ESP32/ESP8266 can be detached from Raspberry Pi and powered by a separate USB charger. 
-* Blink ESP32/ESP8266 with pyWebREPL over WiFi.
+* Blink ESP32/ESP8266 with pyWebREPL over the WiFi.
 ```
 python3 example/blink.py 192.168.x.xxx 
 ``` 
 ## Mechanism
-* Flash the ESP32/ES8266 dev board with MicroPython firmware then one can get a MicroPython prompt.
+* Flash the ESP32/ES8266 dev board with MicroPython firmware then one can get a MicroPython prompt for the ESP32/ESP8266.
 * Enable MicroPython's WebREPL feature and join ESP32/ESP8266 to a WiFi network so that the prompt can be accessed as a webservice.
 * Before pyWebREPL, there is a [broswer client](https://micropython.org/webrepl/) for us to talk to the webservice.
 * This library provide a Python client for Raspberry Pi to talk to the webservice.
 ## More Deeper
-* The webservice uses the websocket protocol 
+* The webservice uses the [websocket](https://www.rfc-editor.org/rfc/rfc6455.html#section-5.2) protocol 
 * This Python library for Raspberry Pi converts the MicroPython code into websocket frames
 * Frames are sent to the webservice then MicroPython code will be interpreted on ESP32/ESP8266 in real time.
 ## A few words about MicroPython prompt (Nonprinting Characters)
