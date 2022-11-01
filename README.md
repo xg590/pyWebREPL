@@ -1,5 +1,5 @@
 ## Intro
-* I wanted to program my ESP32/ESP8266 over the Wireless LAN in real time so I created this library. 
+* I wanted to program my ESP32/ESP8266 over the Wireless LAN in real time so I created this library.
 ## pyWebREPL 
 * [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client to control ESP32/ESP8266 but it is not for real automation.
 * I did a reverse-engineering work with the help of Wireshark and Chrome Devtools.  
@@ -40,3 +40,7 @@ python3 example/blink.py 192.168.x.xxx
 ## A few words about MicroPython prompt (Nonprinting Characters)
 * In the MicroPython prompt, when we press <kbd>ctrl</kbd>+<kbd>e</kbd> (its caret notation is <kbd>^E</kbd>) on keyboard, we activate the paste mode. 
 * If we refers to <i>Control code chart</i> of [ASCII](https://en.wikipedia.org/wiki/ASCII), we know <kbd>^E</kbd> is <kbd>"\x05"</kbd>, so we can activate the paste mode when we send b"\x05" via webREPL. Then our code will be received in paste mode, which is how we run code block.
+## Update log
+* New for v1.2 [see example](misc/update_v1.2.ipynb)
+  * Add two new functions: write_main and soft_boot.
+  * main.py is executed automatically after the boot of MicroPython interpreter. write_main create or update the main.py in root directory.

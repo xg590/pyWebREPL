@@ -49,6 +49,19 @@ class WEBREPL:
             if buf[-4:]=='>>> ': # the buffer is now returnable
                 return buf
 
+    def soft_reboot(self):
+        self._send([b'\x04']) # Send \D
+        self.close()
+
+    def write_main(self, main_code):
+        self.send('''fw=open('main.py','w')''')
+        self.recv()
+        for code in main_code.strip().splitlines():
+            self.send("""fw.write('''"""+code+"""\\r''')""")
+            self.recv() 
+        self.send('''fw.flush()\nfw.close()''')
+        self.recv()
+
     def __init__(self, host='192.168.1.1', port=8266, password='123456'):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((host, port))
