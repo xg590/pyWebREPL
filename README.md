@@ -15,7 +15,7 @@
 ```
 sudo apt update && sudo apt install python3 python3-pip
 pip install esptool
-git clone -b v1.1 https://github.com/xg590/pyWebREPL.git
+git clone -b v1.2 https://github.com/xg590/pyWebREPL.git
 cd pyWebREPL
 wget https://micropython.org/resources/firmware/esp8266-20220618-v1.19.1.bin && wget https://micropython.org/resources/firmware/esp32-20220618-v1.19.1.bin
 bash misc/flash_adv.sh --model esp8266 --port /dev/ttyUSB0 --bin esp8266-20220618-v1.19.1.bin --hostname myESP8266 --webrepl-passwd 123456 --ssid xxx --wifi-passwd xxx
