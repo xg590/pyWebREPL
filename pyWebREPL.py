@@ -28,11 +28,12 @@ class WEBREPL:
 
     def send(self, code):
         self._send([b'\x05'])
-        sec_len = 100 # chop the string if it is longer than 100 char
+        sec_len = 10 # chop the string if it is longer than 100 char
         for cmd in code.strip().splitlines():
             for i in range(len(cmd)//sec_len+1):
                 self._send(cmd[i*sec_len: (i+1)*sec_len])  
-                time.sleep(0.1) # This prevents prompt overflow 
+                time.sleep(0.03) # This prevents prompt overflow 
+            time.sleep(0.01) # This prevents prompt overflow 
             self._send([b'\r']) 
         self._send([b'\x04'])
 
