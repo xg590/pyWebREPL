@@ -5,7 +5,13 @@
 * I did a reverse-engineering work with the help of Wireshark and Chrome Devtools.  
 <img src="misc/materials.png" width="450px" height="300px"></img>
 ## Know problem
-As of 24 Nov 2022, the network config of ESP32 is not persistent (it loses WIFI connection after power-off), esp8266 is OK. 
+As of 24 Nov 2022, the network config of ESP32 is not persistent (it loses WIFI connection after power-off), esp8266 is OK. A workaround is putting the following code in the main.py. I will automate this procedure in the future. 
+```
+import network                         
+wlan = network.WLAN(network.STA_IF)    
+wlan.active(True)                       
+wlan.connect(SSID, WIFI_PASSWD)   
+``` 
 ## Material List
 * ESP32/ESP8266 dev board
 * Raspberry Pi (OR any Linux)
