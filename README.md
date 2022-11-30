@@ -2,7 +2,7 @@
 * I wanted to program my ESP8266 over the Wireless LAN in real time so I created this library.
 ## pyWebREPL 
 * [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client to control ESP32/ESP8266 but it is not for real automation.
-* I did a reverse-engineering work with the help of Wireshark and Chrome Devtools.  
+* I did a [reverse-engineering work](https://github.com/xg590/tutorials/blob/b3891f3025b8f4d7846b6010a1a85c120744e281/Web_dev/flask/websocket/README.md) with the help of Wireshark and Chrome Devtools.  
 <img src="misc/materials.png" width="450px" height="300px"></img>
 ## Know problem
 As of 24 Nov 2022, the network config of ESP32 is not persistent (it loses WIFI connection after power-off), esp8266 is OK. A workaround is putting the following code in the main.py. I will automate this procedure in the future. 
