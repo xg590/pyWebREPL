@@ -13,7 +13,7 @@ esptool.py --port /dev/ttyUSB0               erase_flash
 esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20220618-v1.19.1.bin
 screen /dev/ttyUSB0 115200
 ```
-<img src="misc/flash_micropython_to_esp8266.png"></img>
+<img src="flash_micropython_to_esp8266.png"></img>
 * Enable WebREPL and Join ESP8266 to WiFi router
 ```
 import webrepl_setup 
@@ -24,5 +24,5 @@ wlan.active(True)
 wlan.connect('xxx', 'xxxxxx')
 wlan.ifconfig()
 ```
-<img src="misc/enable_webrepl.png"></img>
+<img src="enable_webrepl.png"></img>
 * Run this [Python code](misc/pyWebREPL_blink.ipynb) on Raspberry Pi to blink ESP8266 

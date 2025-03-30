@@ -3,15 +3,7 @@
 ## pyWebREPL 
 * [micropython/webrepl](https://micropython.org/webrepl/) provides a browser-based client to control ESP32/ESP8266 but it is not for real automation.
 * I did a [reverse-engineering work](https://github.com/xg590/tutorials/blob/b3891f3025b8f4d7846b6010a1a85c120744e281/Web_dev/flask/websocket/README.md) with the help of Wireshark and Chrome Devtools.  
-<img src="misc/materials.png" width="450px" height="300px"></img>
-## Know problem
-As of 24 Nov 2022, the network config of ESP32 is not persistent (it loses WIFI connection after power-off), esp8266 is OK. A workaround is putting the following code in the main.py. I will automate this procedure in the future. 
-```
-import network                         
-wlan = network.WLAN(network.STA_IF)    
-wlan.active(True)                       
-wlan.connect(SSID, WIFI_PASSWD)   
-``` 
+<img src="misc/materials.png" width="450px" height="300px"></img> 
 ## Material List
 * ESP32/ESP8266 dev board
 * Raspberry Pi (OR any Linux)
@@ -48,6 +40,15 @@ python3 example/blink.py 192.168.x.xxx
 * In the MicroPython prompt, when we press <kbd>ctrl</kbd>+<kbd>e</kbd> (its caret notation is <kbd>^E</kbd>) on keyboard, we activate the paste mode. 
 * If we refers to <i>Control code chart</i> of [ASCII](https://en.wikipedia.org/wiki/ASCII), we know <kbd>^E</kbd> is <kbd>"\x05"</kbd>, so we can activate the paste mode when we send b"\x05" via webREPL. Then our code will be received in paste mode, which is how we run code block.
 ## Update log
+* New for v1.3
+  * The persistence problem is solved by appending new lines to boot.py
+    ```
+    import network                         
+    wlan = network.WLAN(network.STA_IF)    
+    wlan.active(True)                       
+    wlan.connect(SSID, WIFI_PASSWD)   
+    ```
+  * Test flash_adv.sh on D1_Mini / ESP32-WROOM / ESP32S3
 * New for v1.2 [see example](misc/update_v1.2.ipynb)
   * Add two new functions: write_main and soft_boot.
   * main.py is executed automatically after the boot of MicroPython interpreter. write_main create or update the main.py in root directory.

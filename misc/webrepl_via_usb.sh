@@ -1,3 +1,8 @@
+if [[ $# -eq 0 ]] 
+    then 
+        echo bash $0 /dev/ttyUSB0
+        exit
+fi
 screen -L -Logfile /tmp/esp_micropython_ifcfg.log -d -m -S esp_foo $1 115200 
  
 screen -S esp_foo -X stuff "^M"
